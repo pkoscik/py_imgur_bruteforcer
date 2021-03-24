@@ -53,7 +53,7 @@ if __name__ == "__main__":
         worker_ammount = int(input('How many workers to run?\n'))
         url_ext = input('File extension? (png, jpg, jpeg)\n')
         url_len = int(input('Url lenght? (5 or 7)\n'))
-        url_type_chooser = input('Type of url? ( 1: letters, 2: digits, 3: mixed) \n')
+        url_type = int(input('Type of url? ( 1: letters, 2: digits, 3: mixed) \n'))
 
     # correct arguments
     if argl == 5:
