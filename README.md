@@ -8,6 +8,9 @@ A simple utility to find and download randomly found imgur images
 - Saving urls to .csv file
 - Blazingly fast
 
+## Requirements
+- requests library
+
 ## Command line syntax
 
 ```
