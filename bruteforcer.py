@@ -3,14 +3,13 @@ from random import choice
 from string import ascii_letters, digits
 from requests import get
 from sys import argv, exit
+from time import time
 import saver
 
 imgur_empty_len = 484
 
-used_ids = []
-
 worker_count = 0
-url_found = 0
+hits_found = 0
 
 
 def limits(workers, lenght, extention, type):
@@ -23,8 +22,8 @@ def limits(workers, lenght, extention, type):
 
 
 def worker(lenght, extention, type):
-    global worker_count
-    global url_found
+    # cant be bothered with singletons tbh
+    global worker_count, hits_found
 
     if type == 1:
         random = ''.join(choice(ascii_letters) for k in range(lenght))
@@ -42,6 +41,7 @@ def worker(lenght, extention, type):
     if len(r.text) != imgur_empty_len:
         print('image found:', link)
         saver.download(link, str(worker_count), extention)
+        hits_found += 1
 
     worker_count += 1
 
@@ -85,6 +85,8 @@ if __name__ == "__main__":
     print('Starting', worker_ammount, 'workers')
     print('url type: https://i.imgur.com/' + '_' * url_len + '.' + url_ext, 'searching for id of type:', url_type)
 
+    time_start = time()
+
     # threading
     worker_list = []
     for t in range(worker_ammount):
@@ -93,3 +95,15 @@ if __name__ == "__main__":
 
     for worker in worker_list:
         worker.start()
+
+    for worker in worker_list:
+        worker.join()
+
+    time_end = time()
+    time_duration = time_end - time_start
+
+    print('RESULTS:')
+    print('URLs tested:', worker_ammount)
+    print('Hits:', hits_found)
+    print('Percentage of hits:', hits_found / worker_ammount * 100, 'percent')
+    print('Time:', time_duration, 'seconds')
