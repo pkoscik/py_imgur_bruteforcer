@@ -5,9 +5,9 @@ A simple utility to find and download randomly found imgur images
 ## Features 
 - CLI user interface
 - Blazingly fast
+- Saving images to local filesystem
 
 ## TODO
-- Saving images to local filesystem
 - Saving urls to .csv file
 
 ## Requirements
